@@ -17,7 +17,7 @@ class ListPokemonsViewModel(
         isLoading.value = true;
         pokemonRepository
             .getPokemons(150,
-                "number, asc",
+                "number,asc",
                 onComplete = {
                     pokemons.value = it
                     isLoading.value = false
