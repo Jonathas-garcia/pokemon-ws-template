@@ -4,18 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.heiderlopes.pokemonwstemplate.repository.PokemonRepository
 
-class SplashViewModel(val pokemonRepository: PokemonRepository) : ViewModel() {
+class SplashViewModel(
+    val pokemonRepository: PokemonRepository
+) : ViewModel() {
 
-    val messageError: MutableLiveData<String> = MutableLiveData()
+    val responseData: MutableLiveData<String> = MutableLiveData()
 
     fun checkHealth() {
         pokemonRepository.checkHealth(
             onComplete = {
-                messageError.value = ""
+                responseData.value = ""
             },
             onError = {
-                messageError.value = it?.message
+                responseData.value = it?.message
             }
         )
     }
+
 }

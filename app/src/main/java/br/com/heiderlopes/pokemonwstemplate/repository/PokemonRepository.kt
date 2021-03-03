@@ -3,6 +3,7 @@ package br.com.heiderlopes.pokemonwstemplate.repository
 import br.com.heiderlopes.pokemonwstemplate.model.Pokemon
 
 interface PokemonRepository {
+
     fun checkHealth(
         onComplete: () -> Unit,
         onError: (Throwable?) -> Unit
@@ -20,5 +21,4 @@ interface PokemonRepository {
         onComplete:(Pokemon?) -> Unit,
         onError:(Throwable) -> Unit
     )
-
 }

@@ -21,11 +21,8 @@ import java.util.concurrent.TimeUnit
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
-
     viewModel { ListPokemonsViewModel(get()) }
-
     viewModel { FormPokemonViewModel(get()) }
-
 }
 
 val repositoryModule = module {
@@ -34,12 +31,17 @@ val repositoryModule = module {
 
 val networkModule = module {
     single<Interceptor> { AuthInterceptor() }
-    single { createOkHttpClientAuth(get()) }
     single { createNetworkClient(get()).create(PokemonService::class.java) }
+    single { createOkhttpClientAuth(get()) }
+
     single { createPicassoAuth(get(), get()) }
+
 }
 
-private fun createPicassoAuth(context: Context, okHttpClient: OkHttpClient): Picasso {
+private fun createPicassoAuth(
+    context: Context,
+    okHttpClient: OkHttpClient
+): Picasso {
     return Picasso
         .Builder(context)
         .downloader(OkHttp3Downloader(okHttpClient))
@@ -55,8 +57,7 @@ private fun createNetworkClient(okHttpClient: OkHttpClient): Retrofit {
         .build()
 }
 
-
-private fun createOkHttpClientAuth(authInterceptor: Interceptor): OkHttpClient {
+private fun createOkhttpClientAuth(authInterceptor: Interceptor): OkHttpClient {
     val builder = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .addNetworkInterceptor(StethoInterceptor())

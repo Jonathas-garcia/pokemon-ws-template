@@ -17,13 +17,13 @@ class MainActivity : AppCompatActivity() {
         btPokedex.setOnClickListener {
             startActivity(Intent(this, ScanActivity::class.java))
         }
-
         btPokemonList.setOnClickListener {
             startActivity(Intent(this, ListPokemonsActivity::class.java))
         }
-
         btClose.setOnClickListener {
             finish()
         }
+
+
     }
 }

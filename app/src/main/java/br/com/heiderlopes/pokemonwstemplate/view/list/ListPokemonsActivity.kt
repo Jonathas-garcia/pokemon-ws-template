@@ -19,37 +19,38 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListPokemonsActivity : AppCompatActivity() {
 
-    val listaPokemonsViewModel: ListPokemonsViewModel by viewModel()
-
+    val listPokemonsViewModel: ListPokemonsViewModel by viewModel()
     val picasso: Picasso by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_pokemons)
-        listaPokemonsViewModel.getPokemons()
 
-        listaPokemonsViewModel.isLoading.observe(this, Observer {
+        listPokemonsViewModel.getPokemons()
+
+        listPokemonsViewModel.isLoading.observe(this, Observer {
             if(it == true) {
                 containerLoading.visibility = View.VISIBLE
             } else {
                 containerLoading.visibility = View.GONE
             }
         })
-        listaPokemonsViewModel.messageError.observe(this, Observer {
+
+        listPokemonsViewModel.messageError.observe(this, Observer {
             if(it != "") {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
             }
         })
-        listaPokemonsViewModel.pokemons.observe(this, Observer {
+
+        listPokemonsViewModel.pokemons.observe(this, Observer {
             rvPokemons.adapter = ListPokemonsAdapter(it, picasso) {
                 val intent = Intent(this, FormPokemonActivity::class.java)
                 intent.putExtra("POKEMON", it)
                 startActivity(intent)
-                //finish()
+                finish()
             }
-
             rvPokemons.layoutManager = GridLayoutManager(this, 3)
-
         })
+
     }
 }

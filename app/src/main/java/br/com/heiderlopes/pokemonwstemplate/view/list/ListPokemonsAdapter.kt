@@ -9,7 +9,6 @@ import br.com.heiderlopes.pokemonwstemplate.model.Pokemon
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
-
 class ListPokemonsAdapter(
     val pokemons: List<Pokemon>,
     val picasso: Picasso,
@@ -40,10 +39,7 @@ class ListPokemonsAdapter(
         ) = with(itemView) {
             tvPokemonName.text = pokemon.nome
             tvPokemonNumber.text = pokemon.numero
-            picasso
-                .load("https://pokedexdx.herokuapp.com${pokemon.urlImagem}")
-                .placeholder(R.drawable.charizard)
-                .into(ivPokemon)
+            picasso.load("https://pokedexdx.herokuapp.com${pokemon.urlImagem}").into(ivPokemon)
 
             setOnClickListener { clickListener(pokemon) }
         }

@@ -8,10 +8,8 @@ import br.com.heiderlopes.pokemonwstemplate.repository.PokemonRepository
 class FormPokemonViewModel(
     val pokemonRepository: PokemonRepository
 ) : ViewModel() {
-
     val isLoading = MutableLiveData<Boolean>()
     val messageResponse = MutableLiveData<String>()
-
     fun updatePokemon(pokemon: Pokemon) {
         isLoading.value = true
         pokemonRepository.updatePokemon(
